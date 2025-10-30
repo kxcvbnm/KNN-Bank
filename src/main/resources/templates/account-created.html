@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlrs:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Created!</title>
+    <style>
+       
+        body {
+            font-family: Trebuchet MS;
+            background-color: #C1856D;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 30px auto;
+            background: #E6CFA9;
+            border-radius: 12px;
+            padding: 45px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h2 {
+            color: #9A3F3F;
+            text-align: center;
+        }
+
+        p {
+            color: #9A3F11;
+            line-height: 1.6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #C1856D;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #9A3F3F;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Thank you, <span th:text="${name}"></span>.</h2>
+        <p>Your <b><span th:text="${accountType}"></span></b> account has been created.</p>
+
+        <p><b>Account Details</b></p>
+        <ul>
+            <li>Account Number: <b><span th:text="${accountNumber}"></span></b></li>
+            <li>Account Type: <b><span th:text="${accountType}"></span></b></li>
+            <li>Currency: <b><span th:text="${currency}"></span></b></li>
+        </ul>
+
+        <p>Thank you for using our services.</p>
+
+        <div class="footer">
+            <p>&copy; 2025 KNN Bank | Your Pocket Buddy</p>
+        </div>
+    </div>
+</body>
+</html>
