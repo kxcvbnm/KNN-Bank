@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlrs:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Alert</title>
+    <style>
+       
+        body {
+            font-family: Trebuchet MS;
+            background-color: #3A6F43;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 30px auto;
+            background: #A3DC9A;
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h2 {
+            color: #3A6F43;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #3A6F43;
+        }
+
+        p {
+            color: #3A6F43;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #3A6F43;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Credit Alert</h2>
+        <p>Dear <span th:text="${name}"></span></p>
+        <div class="alert">
+            <p>Your account has been credited with <b>฿<span th:text="${amount}"></span></b></p>
+            <p>Account Number: <b><span th:text="${accountNumber}"></span></b></p>
+            <p>Date: <b><span th:text="${date}"></span></b></p>
+            <p>Available Balance: <b>฿<span th:text="${balance}"></span></b></p>
+        </div>
+        <p>Thank you for using our services.</p>
+        <div class="footer">
+            <p>&copy; 2025 KNN Bank | Your Pocket Buddy.</p>
+        </div>
+    </div>
+</body>
+</html>
