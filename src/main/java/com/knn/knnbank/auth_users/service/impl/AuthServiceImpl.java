@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.knn.knnbank.account.entity.Account;
+import com.knn.knnbank.account.service.AccountService;
 import com.knn.knnbank.auth_users.dtos.LoginRequest;
 import com.knn.knnbank.auth_users.dtos.LoginResponse;
 import com.knn.knnbank.auth_users.dtos.RegisterRequest;
@@ -46,6 +48,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
     private final NotificationService notificationService;
+    private final AccountService accountService;
     
     private final CodeGenerator codeGenerator;
     private final PasswordResetCodeRepo passwordResetCodeRepo;
@@ -87,7 +90,7 @@ public class AuthServiceImpl implements AuthService {
 
         User savedUser = userRepo.save(user);
 
-        // Account savedAccount = accountService.createAccount(AccountType.SAVINGS, savedUser);
+        Account savedAccount = accountService.createAccount(AccountType.SAVINGS, savedUser);
 
         Map<String, Object> vars = new HashMap();
         vars.put("name", savedUser.getFirstName());
@@ -103,7 +106,7 @@ public class AuthServiceImpl implements AuthService {
 
         Map<String, Object> accountVars = new HashMap();
         accountVars.put("name", savedUser.getFirstName());
-        // accountVars.put("accountNumber", savedAccount.getAccountNumber());
+        accountVars.put("accountNumber", savedAccount.getAccountNumber());
         accountVars.put("accountType", AccountType.SAVINGS.name());
         accountVars.put("currency", Currency.THB);
 
@@ -119,7 +122,7 @@ public class AuthServiceImpl implements AuthService {
         return Response.<String>builder()
             .statusCode(HttpStatus.OK.value())
             .message("User registered successfully")
-            // .data("Account details has been sent to: " + savedUser.getEmail() + " with account number: " + savedAccount.getAccountNumber())
+            .data("Account details has been sent to: " + savedUser.getEmail() + " with account number: " + savedAccount.getAccountNumber())
             .build();
     }
 
