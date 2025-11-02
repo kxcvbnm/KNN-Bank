@@ -24,6 +24,7 @@ import com.knn.knnbank.auth_users.dtos.UserDTO;
 import com.knn.knnbank.auth_users.entity.User;
 import com.knn.knnbank.auth_users.repo.UserRepo;
 import com.knn.knnbank.auth_users.service.UserService;
+import com.knn.knnbank.aws.S3Service;
 import com.knn.knnbank.exceptions.BadRequestException;
 import com.knn.knnbank.exceptions.NotFoundException;
 import com.knn.knnbank.notification.dtos.NotificationDTO;
@@ -42,8 +43,12 @@ public class UserServiceImpl implements UserService {
     private final NotificationService notificationService;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
+    private final S3Service s3Service;
 
-    private final String uploadDir = "uploads/profile-picture/";
+    // private final String uploadDir = "uploads/profile-picture/";
+    
+    // save images to frontend public folder
+    private final String uploadDir = "C:\\Users\\Prompt\\Desktop\\KNN-Bank-React\\public\\profile-picture\\";
 
     @Override
     public User getCurrentLoggedInUser() {
@@ -159,7 +164,9 @@ public class UserServiceImpl implements UserService {
 
             Files.copy(file.getInputStream(), filePath);
 
-            String fileUrl = uploadDir + newFileName;
+            // String fileUrl = uploadDir + newFileName;
+
+            String fileUrl = "profile-picture/" + newFileName;
 
             user.setProfilePictureUrl(fileUrl);
             userRepo.save(user);
@@ -172,6 +179,32 @@ public class UserServiceImpl implements UserService {
 
         } catch(IOException ex) {
             throw new BadRequestException("Failed to upload profile picture");
+        }
+    }
+
+    @Override
+    public Response<?> uploadProfilePictureToS3(MultipartFile file) {
+
+        User user = getCurrentLoggedInUser();
+
+        try{
+            if(user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
+                s3Service.deleteFile(user.getProfilePictureUrl());
+            }
+
+            String s3Url = s3Service.uploadFile(file, "profile-picture");
+
+            user.setProfilePictureUrl(s3Url);
+            userRepo.save(user);
+
+            return Response.builder()
+                .statusCode(HttpStatus.OK.value())
+                .message("Profile picture uploaded successfully")
+                .data(s3Url)
+                .build();
+
+        } catch(IOException ex) {
+            throw new BadRequestException(ex.getMessage());
         }
     }
 
