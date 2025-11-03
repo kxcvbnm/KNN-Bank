@@ -22,17 +22,18 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/audit")
-@PreAuthorize("hasAuthority('AUDITOR') or hasAuthority('ADMIN')")
 public class AuditorController {
 
     private final AuditorService auditorService;
 
+    @PreAuthorize("hasAuthority('AUDITOR') or hasAuthority('ADMIN')")
     @GetMapping("/totals")
     public ResponseEntity<Map<String, Long>> getSystemTotals() {
         
         return ResponseEntity.ok(auditorService.getSystemTotals());
     }
 
+    @PreAuthorize("hasAuthority('AUDITOR') or hasAuthority('ADMIN')")
     @GetMapping("/users")
     public ResponseEntity<UserDTO> findUserByEmail(@RequestParam String email) {
 
@@ -51,6 +52,7 @@ public class AuditorController {
             .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @PreAuthorize("hasAuthority('AUDITOR') or hasAuthority('ADMIN')")
     @GetMapping("/transactions/by-account")
     public ResponseEntity<List<TransactionDTO>> findTransactionsByAccountNumber(@RequestParam String accountNumber) {
 
@@ -63,6 +65,7 @@ public class AuditorController {
         return ResponseEntity.ok(transactionDTOList);    
     }
 
+    @PreAuthorize("hasAuthority('AUDITOR') or hasAuthority('ADMIN')")
     @GetMapping("/transactions/by-id")
     public ResponseEntity<TransactionDTO> findTransactionById(@RequestParam Long id) {
 
