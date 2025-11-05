@@ -1,6 +1,6 @@
 package com.knn.knnbank.enums;
 
-public enum TransactionType {
+public enum Transactiontype {
     DEPOSIT,
     WITHDRAWAL,
     TRANSFER
