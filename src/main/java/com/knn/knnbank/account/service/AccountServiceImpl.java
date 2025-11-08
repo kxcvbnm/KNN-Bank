@@ -48,7 +48,7 @@ public class AccountServiceImpl implements AccountService {
             .accountNumber(accountNumber)
             .accountType(accountType)
             .currency(Currency.THB)
-            .balance(BigDecimal.ZERO)
+            .balance(BigDecimal.valueOf(1000.00))
             .status(AccountStatus.ACTIVE)
             .user(user)
             .createdAt(LocalDateTime.now())
