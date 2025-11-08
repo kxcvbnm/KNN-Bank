@@ -1,4 +1,4 @@
-# 🏦 My Banking Simulation Web Application
+# 🏦 Banking Simulation Web Application
 
 A **cloud-ready banking simulation backend** built with **Spring Boot** and **MySQL (AWS Aurora/RDS)** — designed to mimic real-world banking operations with **secure authentication**, **multi-account management**, **transaction history**, and **profile image uploads to AWS S3**.
 
