@@ -6,6 +6,10 @@ The application runs inside a **Docker container on AWS EC2**, and is continuous
 
 ---
 
+[<--KNN-Banking-Simulation-->](http://knnbank-frontend-deploy.s3-website-ap-southeast-2.amazonaws.com)
+
+---
+
 ## ✨ Key Features
 
 ### 💳 Banking Simulation
